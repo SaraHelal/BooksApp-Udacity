@@ -1,5 +1,6 @@
 import React from 'react'
 import Book from './Book'
+import PropTypes from 'prop-types'
 
 const ReadShelf = ({type, books, handleChange}) => {
   return (
@@ -16,6 +17,12 @@ const ReadShelf = ({type, books, handleChange}) => {
     </div>
 </div>
   )
+}
+
+ReadShelf.propTypes = {
+  type: PropTypes.string.isRequired,
+  books: PropTypes.array.isRequired,
+  handleChange: PropTypes.func.isRequired
 }
 
 export default ReadShelf

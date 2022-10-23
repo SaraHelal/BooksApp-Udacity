@@ -1,8 +1,9 @@
 import React from 'react'
 import Options from './Options'
+import PropTypes from 'prop-types'
 
 const Book = ({data, handleChange, action}) => {
-    const bookThumbnail = data.imageLinks ? `url(${data.imageLinks.thumbnail})` : 'gray'
+    //const bookThumbnail = data.imageLinks ? `url(${data.imageLinks.thumbnail})` : 'gray'
   return (
     <div className="book">
         <div className="book-top">
@@ -11,7 +12,7 @@ const Book = ({data, handleChange, action}) => {
             style={{
                 width: 128,
                 height: 193,
-                background: bookThumbnail
+                backgroundImage: data.imageLinks && `url(${data.imageLinks.thumbnail})`,
             }}
             ></div>
             <Options status={data.shelf} action={action}  handleChange={(e)=>handleChange(e,data)}/>
@@ -23,4 +24,9 @@ const Book = ({data, handleChange, action}) => {
   )
 }
 
+Book.propTypes = {
+  data: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  action: PropTypes.string
+}
 export default Book

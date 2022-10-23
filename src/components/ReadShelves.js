@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import ReadShelf from './ReadShelf'
+import PropTypes from 'prop-types'
+
 
 const ReadShelves = ({booksInfo, handleChange}) => {
   return (
@@ -22,4 +24,8 @@ const ReadShelves = ({booksInfo, handleChange}) => {
   )
 }
 
+ReadShelves.propTypes = {
+    booksInfo: PropTypes.array.isRequired,
+    handleChange: PropTypes.func.isRequired
+}
 export default ReadShelves

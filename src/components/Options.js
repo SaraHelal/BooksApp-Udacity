@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Options = ({status , handleChange, action}) => {
-
   return (
     <div className="book-shelf-changer">
         <select name="select" defaultValue={status} onChange={handleChange}>
@@ -26,5 +26,9 @@ const Options = ({status , handleChange, action}) => {
     </div>
   )
 }
-
+Options.propTypes = {
+  status: PropTypes.string.isRequired,
+  action:PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+}
 export default Options

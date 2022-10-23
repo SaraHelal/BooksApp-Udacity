@@ -5,20 +5,20 @@ import * as BooksAPI from './BooksAPI'
 import {  Route, Routes } from "react-router-dom";
 import ReadShelves from "./components/ReadShelves";
 function App() {
-  const [booksInfo, setBooksInfo] = useState([])
   
+  const [booksInfo, setBooksInfo] = useState([])
   const BooksFromApi = async ()=>{
     const res = await BooksAPI.getAll()
     setBooksInfo(res)
-  } 
- 
-  
+  }  
   useEffect(()=>{
-    
-    BooksFromApi()
-  },[])
+    let mounted = true;
+    mounted && BooksFromApi()
 
- 
+    return()=>{
+      mounted = false;
+    }
+  },[])
 
  const handleChange =(e, data)=>{
   changeReadStatus(e,data)
@@ -34,8 +34,6 @@ const changeReadStatus = async (e,book)=>{
 }
 
   return (
-
-
     <div className="app">
       <Routes>
         <Route path="/add" element={
@@ -48,8 +46,8 @@ const changeReadStatus = async (e,book)=>{
         }>
         </Route>
       </Routes>
-    </div>
-    
+      
+    </div>    
   );
  
       

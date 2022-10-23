@@ -2,8 +2,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../BooksAPI'
 import Book from './Book'
-const SearchLayout = ({handleChange, booksInfo}) => {
+import PropTypes from 'prop-types'
 
+
+const SearchLayout = ({handleChange, booksInfo}) => {
     const [searchBooks, setSearchBooks] = useState([])
 
     const getSearchBooksFromApi= async (searchWord)=>{
@@ -13,7 +15,6 @@ const SearchLayout = ({handleChange, booksInfo}) => {
         const searchWord= e.target.value;
         if (searchWord){
             const res = await getSearchBooksFromApi(searchWord);
-            //console.log('seaarch books: ', res);
             if (res.error){
               setSearchBooks(null)
             }
@@ -65,4 +66,8 @@ const SearchLayout = ({handleChange, booksInfo}) => {
   )
 }
 
+SearchLayout.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  booksInfo:PropTypes.array.isRequired
+}
 export default SearchLayout
