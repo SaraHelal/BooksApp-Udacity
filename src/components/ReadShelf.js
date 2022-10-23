@@ -9,10 +9,10 @@ const ReadShelf = ({type, books, handleChange}) => {
     <div className="bookshelf-books">
         <ol className="books-grid">
         {
-                books.filter(book=>book.shelf=== type).map((data)=>{
-                    return <li key={data.id}><Book data={data} handleChange={handleChange} action="updateShelf"/></li>
-                })
-            }
+          books.filter(b=>b.shelf=== type).map((bo)=>{
+              return <li key={bo.id}><Book book={bo} handleChange={handleChange} action="updateShelf"/></li>
+          })
+        }
         </ol>
     </div>
 </div>

@@ -2,47 +2,49 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import SearchLayout from './components/SearchLayout'
 import * as BooksAPI from './BooksAPI'
-import {  Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ReadShelves from "./components/ReadShelves";
 function App() {
   
-  const [booksInfo, setBooksInfo] = useState([])
+  const [books, setBooks] = useState([]);
+  
+  //GetAll Books from API
   const BooksFromApi = async ()=>{
-    const res = await BooksAPI.getAll()
-    setBooksInfo(res)
-  }  
+    const res = await BooksAPI.getAll();
+    res ? setBooks(res) : setBooks(null)
+  }
+
   useEffect(()=>{
     let mounted = true;
-    mounted && BooksFromApi()
+    mounted && BooksFromApi();
 
     return()=>{
       mounted = false;
     }
   },[])
 
- const handleChange =(e, data)=>{
-  changeReadStatus(e,data)
-}
+  //Handle changes in book movement between shelves and also for adding search books
+  const handleChange =(e, data)=>{
+    changeReadStatus(e,data);
+  }
 
-const changeReadStatus = async (e,book)=>{
-  const newShelf = e.target.value
-  await BooksAPI.update(book,newShelf)
-
-  
-  BooksFromApi();
-
-}
+  const changeReadStatus = async (e,book)=>{
+    const newShelf = e.target.value;
+    await BooksAPI.update(book,newShelf);
+    //Get Books Again from API after changes 
+    BooksFromApi();
+  }
 
   return (
     <div className="app">
       <Routes>
         <Route path="/add" element={
-           <SearchLayout  handleChange={handleChange} booksInfo={booksInfo} />
+           <SearchLayout books={books} handleChange={handleChange}  />
         }>
 
         </Route>
         <Route exact path="/" element={
-          <ReadShelves booksInfo={booksInfo}  handleChange={handleChange} />
+          <ReadShelves books={books}  handleChange={handleChange} />
         }>
         </Route>
       </Routes>
