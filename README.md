@@ -4,4 +4,4 @@ to run the project:
 - clone the repo from github.
 - run npm i.
 - run npm start.
-- The app will run at "https://localhost/3000"
+- The app will run at "http://localhost:3000"
