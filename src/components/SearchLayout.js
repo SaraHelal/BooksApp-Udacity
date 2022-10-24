@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import * as BooksAPI from '../BooksAPI'
-import Book from './Book'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import * as BooksAPI from '../BooksAPI';
+import Book from './Book';
+import PropTypes from 'prop-types';
 
 
 const SearchLayout = ({handleChange, books}) => {
   const [searchBooks, setSearchBooks] = useState([]);
-  const [query, setQuery] = useState("")
   
+  
+  const addBook = (query)=>{
+    if (query){
+      getSearchBooksFromApi(query);
+    }
+    else{
+      setSearchBooks(null);
+    }
+  }
   //Search for books in API
-  const getSearchBooksFromApi= async (searchWord)=>{
-    const res = await BooksAPI.search(searchWord);
+  const getSearchBooksFromApi= async (query)=>{
+    const res = await BooksAPI.search(query);
     if (res.error){
       setSearchBooks(null);
     }
@@ -31,14 +39,6 @@ const SearchLayout = ({handleChange, books}) => {
     }
   }
 
-  useEffect(()=>{
-    if(query){
-      getSearchBooksFromApi(query);
-    } 
-    else{
-      setSearchBooks(null);
-    }
-  },[query])
   
   return (
     <div className="search-books">
@@ -52,8 +52,7 @@ const SearchLayout = ({handleChange, books}) => {
           <input
             type="text"
             placeholder="Search by title, author, or ISBN"
-            value={query}
-            onChange={(e)=>setQuery((e.target.value).trim())}
+            onChange={(e)=>addBook(e.target.value)}
           />
         </div>
       </div>
@@ -62,7 +61,7 @@ const SearchLayout = ({handleChange, books}) => {
         {
           searchBooks &&
           searchBooks.map((book)=>{
-            return <li key={book.id}><Book book={book} status={book.shelf} action="addBook" handleChange={handleChange}/></li>
+            return <li key={book.id}><Book book={book} status={book.shelf} handleChange={handleChange}/></li>
           })
         }
         </ol>
@@ -74,5 +73,5 @@ const SearchLayout = ({handleChange, books}) => {
 SearchLayout.propTypes = {
   handleChange: PropTypes.func.isRequired,
   books:PropTypes.array.isRequired
-}
+};
 export default SearchLayout

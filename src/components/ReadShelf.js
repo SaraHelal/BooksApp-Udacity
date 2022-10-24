@@ -1,6 +1,6 @@
-import React from 'react'
-import Book from './Book'
-import PropTypes from 'prop-types'
+import React from 'react';
+import Book from './Book';
+import PropTypes from 'prop-types';
 
 const ReadShelf = ({type, books, handleChange}) => {
   return (
@@ -10,19 +10,19 @@ const ReadShelf = ({type, books, handleChange}) => {
         <ol className="books-grid">
         {
           books.filter(b=>b.shelf=== type).map((bo)=>{
-              return <li key={bo.id}><Book book={bo} handleChange={handleChange} action="updateShelf"/></li>
+              return <li key={bo.id}><Book book={bo} handleChange={handleChange}/></li>
           })
         }
         </ol>
     </div>
 </div>
   )
-}
+};
 
 ReadShelf.propTypes = {
   type: PropTypes.string.isRequired,
   books: PropTypes.array.isRequired,
   handleChange: PropTypes.func.isRequired
-}
+};
 
 export default ReadShelf

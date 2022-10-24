@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import ReadShelf from './ReadShelf'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ReadShelf from './ReadShelf';
+import PropTypes from 'prop-types';
 
 
 const ReadShelves = ({books, handleChange}) => {
@@ -18,14 +18,14 @@ const ReadShelves = ({books, handleChange}) => {
             </div>
           </div>
           <div className="open-search">
-            <Link to="/add">Add a book</Link>
+            <Link to="/search">Add a book</Link>
           </div>
     </div>
   )
-}
+};
 
 ReadShelves.propTypes = {
     books: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired
-}
+};
 export default ReadShelves

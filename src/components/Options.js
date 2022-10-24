@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Options = ({status , handleChange, action}) => {
+const Options = ({status , handleChange}) => {
   return (
     <div className="book-shelf-changer">
         <select name="select" defaultValue={status} onChange={handleChange}>
-          { action === "updateShelf" ? 
+          { status !== "none" ? 
             (<option disabled>
             Move to...
             </option>
@@ -21,14 +21,13 @@ const Options = ({status , handleChange, action}) => {
             </option>
             <option value="wantToRead" >Want to Read</option>
             <option value="read" >Read</option>
-            {action === "updateShelf" && <option value="none">None</option> }
+            {status !== "none" && <option value="none">None</option> }
         </select>
     </div>
   )
 }
 Options.propTypes = {
   status: PropTypes.string.isRequired,
-  action:PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-}
+};
 export default Options
